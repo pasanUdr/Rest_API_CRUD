@@ -13,7 +13,7 @@ const students = [
 
 //READ
 app.get("/", (req, res) => {
-    res.send("hello my namae is pasan udara");
+    res.send("Hello my name is Pasan Udara");
 });
 app.get("/a", (req, res) => {
     res.send([1, 2, 3]);
@@ -23,8 +23,9 @@ app.get("/students", (req, res) => {
 });
 //READ by specific ID
 app.get("/students/:id", (req, res) => {
+    //look up at the student to check if it exists
     const student = students.find(c => c.id === parseInt(req.params.id))
-    if (!student) res.status(404).send('Not Found');
+    if (!student) return res.status(404).send('Not Found');
     res.send(student);
 });
 
@@ -40,9 +41,9 @@ app.post("/create/students", (req, res) => {
 
 //UPDATE
 app.put('/update/:id', (req, res) => {
-    //look up at the student
+    //look up at the student to check if it exists
     const student = students.find(c => c.id === parseInt(req.params.id))
-    if (!student) res.status(404).send('Not Found');
+    if (!student) return res.status(404).send('Not Found');
 
     //update the student
     student.name = req.body.name;
@@ -51,9 +52,9 @@ app.put('/update/:id', (req, res) => {
 
 //DELETE
 app.delete('/delete/:id', (req, res) => {
-    //look up at the student
+    //look up at the student to check if it exists
     const student = students.find(c => c.id === parseInt(req.params.id))
-    if (!student) res.status(404).send('Not Found');
+    if (!student) return res.status(404).send('Not Found');
 
     //delete the student
     const index = students.indexOf(student);
